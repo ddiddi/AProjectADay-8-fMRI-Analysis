@@ -55,3 +55,48 @@ transversal = np.rot90(transversal, 2)
 # Orgaize the data for visualisation in the sagittal plane
 sagittal = np.transpose(data_all, [2, 3, 1, 0])
 sagittal = np.rot90(sagittal, 1)
+
+
+# Plot some of the images in different planes
+n = 10
+for i in range(6):
+    ax[0][i].imshow(coronal[:, :, n, 0], cmap='gray')
+    ax[0][i].set_xticks([])
+    ax[0][i].set_yticks([])
+    if i == 0:
+        ax[0][i].set_ylabel('coronal', fontsize=25, color='r')
+    n += 10
+
+n = 5
+for i in range(6):
+    ax[1][i].imshow(transversal[:, :, n, 0], cmap='gray')
+    ax[1][i].set_xticks([])
+    ax[1][i].set_yticks([])
+    if i == 0:
+        ax[1][i].set_ylabel('transversal', fontsize=25, color='r')
+    n += 10
+
+n = 5
+for i in range(6):
+    ax[2][i].imshow(sagittal[:, :, n, 0], cmap='gray')
+    ax[2][i].set_xticks([])
+    ax[2][i].set_yticks([])
+    if i == 0:
+        ax[2][i].set_ylabel('sagittal', fontsize=25, color='r')
+    n += 10
+
+fig.subplots_adjust(wspace=0, hspace=0)
+plt.show()
+
+# Create an empty plot with defined aspect ratio
+fig, ax = plt.subplots(1, 1, figsize=[18, 5])
+
+# Plot the timecourse of a random voxel
+ax.plot(transversal[30, 30, 35, :], lw=3)
+ax.set_xlim([0, transversal.shape[3]-1])
+ax.set_xlabel('time [s]', fontsize=20)
+ax.set_ylabel('signal strength', fontsize=20)
+ax.set_title('voxel time course', fontsize=25)
+ax.tick_params(labelsize=12)
+
+plt.show()
